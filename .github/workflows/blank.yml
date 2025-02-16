@@ -19,15 +19,28 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    container:
-      image: e1teck/les_builder:latest 
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
-      # Runs a single command using the runners shell
+      - name: Docker Login
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Pull image
+        run: docker pull ghcr.io/your-github-username/les_builder:latest
       - name: Run a one-line script
         run: ls -l /build
+    
+    #container:
+      #image: e1teck/les_builder:latest 
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    #steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      #- uses: actions/checkout@v4
+
+      # Runs a single command using the runners shell
+
 
