@@ -19,33 +19,37 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    steps:
-      - name: Создаём Docker credentials (авторизация перед `container:`)
-        run: |
-          mkdir -p ~/.docker
-          echo '{"auths":{"ghcr.io":{"username":"${{ secrets.DOCKER_USERNAME }}","password":"${{ secrets.DOCKER_PASSWORD }}"}}}' > ~/.docker/config.json
-      - name: Run a one-line script
-        run: |
-          ls -l /data
-          java --version
-    
-    container:
-     image: ghcr.io/e1teck/les_builder:latest
-
-
+    permissions:
+      contents: read
+      packages: write
     # steps:
-    #   - name: Docker Login
-    #     uses: docker/login-action@v2
-    #     with:
-    #       registry: ghcr.io
-    #       username: ${{ secrets.DOCKER_USERNAME }}
-    #       password: ${{ secrets.DOCKER_PASSWORD }}
-    #   # - name: Pull image
-    #   #   run: docker pull ghcr.io/${{ secrets.DOCKER_USERNAME }}/les_builder:latest
+    #   - name: Создаём Docker credentials (авторизация перед `container:`)
+    #     run: |
+    #       mkdir -p ~/.docker
+    #       echo '{"auths":{"ghcr.io":{"username":"${{ secrets.DOCKER_USERNAME }}","password":"${{ secrets.DOCKER_PASSWORD }}"}}}' > ~/.docker/config.json
     #   - name: Run a one-line script
     #     run: |
     #       ls -l /data
     #       java --version
+    
+    container:
+
+     image: ghcr.io/e1teck/les_builder:latest
+
+
+    steps:
+      # - name: Docker Login
+      #   uses: docker/login-action@v2
+      #   with:
+      #     registry: ghcr.io
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+      # - name: Pull image
+      #   run: docker pull ghcr.io/${{ secrets.DOCKER_USERNAME }}/les_builder:latest
+      - name: Run a script
+        run: |
+          ls -l /data
+          java --version
     
     #container:
       #image: e1teck/les_builder:latest 
