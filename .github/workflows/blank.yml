@@ -35,7 +35,7 @@ jobs:
 
       - name: run container
         run: |
-          docker run --rm ghcr.io/e1teck/les_builder:latest ls -l
+          docker run --rm ghcr.io/${{ secrets.DOCKER_USERNAME }}/les_builder:latest ls -1
     
       # - name: Docker Login
       #   uses: docker/login-action@v2
