@@ -32,6 +32,10 @@ jobs:
           registry: ghcr.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Docker credentials
+        run: |
+          mkdir -p /home/runner/.docker
+          echo '{"auths":{"ghcr.io":{"username":"${{ secrets.DOCKER_USERNAME }}","password":"${{ secrets.DOCKER_PASSWORD }}"}}}' > /home/runner/.docker/config.json
       - name: Main env
         uses: addnab/docker-run-action@v3
         with:
