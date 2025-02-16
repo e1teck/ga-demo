@@ -24,14 +24,14 @@ jobs:
 
 
     steps:
-      - name: Docker Login
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Pull image
-        run: docker pull ghcr.io/${{ secrets.DOCKER_USERNAME }}/les_builder:latest
+      # - name: Docker Login
+      #   uses: docker/login-action@v2
+      #   with:
+      #     registry: ghcr.io
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+      # - name: Pull image
+      #   run: docker pull ghcr.io/${{ secrets.DOCKER_USERNAME }}/les_builder:latest
       - name: Run a one-line script
         run: |
           ls -l /data
