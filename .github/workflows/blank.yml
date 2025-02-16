@@ -32,9 +32,11 @@ jobs:
           registry: ghcr.io
           username: ${{ secrets.DOCKER_USERNAME }} 
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: QEMU
+        uses: docker/setup-qemu-action@v3
 
       - name: run container
-        run: docker run  --rm ghcr.io/${{ secrets.DOCKER_USERNAME }}/les_builder:latest ls -1
+        run: docker run  --platform linux/arm64 --rm ghcr.io/${{ secrets.DOCKER_USERNAME }}/les_builder:latest ls -1
     
       # - name: Docker Login
       #   uses: docker/login-action@v2
