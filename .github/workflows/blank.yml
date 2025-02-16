@@ -31,7 +31,7 @@ jobs:
       - name: Pull image
         run: docker pull ghcr.io/${{ secrets.DOCKER_USERNAME }}/les_builder:latest
       - name: Run a one-line script
-        run: ls -l /
+        run: ls -l
     
     #container:
       #image: e1teck/les_builder:latest 
