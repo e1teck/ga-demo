@@ -20,15 +20,6 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # steps:
-    #   - name: Создаём Docker credentials (авторизация перед `container:`)
-    #     run: |
-    #       mkdir -p ~/.docker
-    #       echo '{"auths":{"ghcr.io":{"username":"${{ secrets.DOCKER_USERNAME }}","password":"${{ secrets.DOCKER_PASSWORD }}"}}}' > ~/.docker/config.json
-    #   - name: Run a one-line script
-    #     run: |
-    #       ls -l /data
-    #       java --version
     
     container:
      image: ghcr.io/e1teck/les_builder:latest
@@ -41,12 +32,17 @@ jobs:
           registry: ghcr.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Main env
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ghcr.io/e1teck/les_builder:latest
+          options: --rm -v ${{ github.workspace }}:/workspace
       # - name: Pull image
       #   run: docker pull ghcr.io/${{ secrets.DOCKER_USERNAME }}/les_builder:latest
-      - name: Создаём Docker credentials (авторизация перед `container:`)
-        run: |
-          mkdir -p ~/.docker
-          echo '{"auths":{"ghcr.io":{"username":"${{ secrets.DOCKER_USERNAME }}","password":"${{ secrets.DOCKER_PASSWORD }}"}}}' > ~/.docker/config.json
+      # - name: Docker credentials
+      #   run: |
+      #     mkdir -p ~/.docker
+      #     echo '{"auths":{"ghcr.io":{"username":"${{ secrets.DOCKER_USERNAME }}","password":"${{ secrets.DOCKER_PASSWORD }}"}}}' > ~/.docker/config.json
       - name: Run a script
         run: |
           ls -l /data
